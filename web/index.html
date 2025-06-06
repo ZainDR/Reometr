@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Data Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="margin-top: 100px">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="comPortSelect">Выберите COM-порт:</label>
+                    <select class="form-control" id="comPortSelect">
+                        <!-- COM-порты будут добавлены с помощью JavaScript -->
+                    </select>
+                </div>
+                <button id="startReadingBtn" class="btn btn-primary btn-block mb-2 mt-2" onclick="toggleReading()">Начать чтение данных</button>
+                <div id="plateStatus">Состояние плиты: неизвестно</div>
+                <button id="togglePlitaBtn" class="btn btn-primary btn-block" onclick="togglePin(6)">Опустить/Поднять плиту</button>
+                <p id="status6">Pin 6 is LOW</p>
+                <button id="togglePrivedBtn" class="btn btn-primary btn-block" onclick="togglePin(7)">Включить/Выключить привод</button>
+                <p id="status7">Pin 7 is LOW</p>
+                <div>
+                    <label for="durationSlider">Выберите время испытания (минуты):</label>
+                    <input type="range" id="durationSlider" min="1" max="60" value="1" oninput="updateDuration(this.value)">
+                    <span id="durationValue">1 минута</span>
+                </div>
+                <div id="remainingTime" style="margin-top: 20px;">Оставшееся время: 60 минут</div>
+                <h2 style="margin-top: 50px">MIN/MAX таблица</h2>
+                <button id="saveToExcelBtn" class="btn btn-primary btn-block mb-2" onclick="saveToExcel()">Сохранить в Excel</button>
+                <div style="max-height: 100px; overflow-y: auto">
+                <table id="dataTable2">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Raznica</th>
+                            <th>Max</th>
+                            <th>Min</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data rows will be added here -->
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-center">
+                    <h2>Max/Min График</h2>
+                </div>
+                <svg id="maxMinChart" width="800" height="400" style="margin-top:100px; max-height: 400px"></svg>
+                <div class="d-flex justify-content-center">
+                    <button onclick="saveChartAsPNG()" class="btn btn-primary">Сохранить как PNG</button>
+                </div>
+                <div id="chartContainer">
+                    <svg id="chart"></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="d3/d3.min.js"></script>
+    <script type="text/javascript" src="/eel.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
